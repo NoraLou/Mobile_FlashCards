@@ -5,6 +5,7 @@ import { Constants } from 'expo'
 import { darkBlue, white } from './utils/colors'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
+import DeckView from './components/DeckView'
 
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
@@ -50,12 +51,27 @@ const Tabs = TabNavigator({
   },
 })
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex:1}}>
         <FlashCardStatusBar backgroundColor={ darkBlue } barStyle="light-content" />
-        <Tabs/>
+        <MainNavigator />
       </View>
     );
   }
