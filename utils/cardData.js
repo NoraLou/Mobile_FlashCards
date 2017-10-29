@@ -1,7 +1,9 @@
-const flashCardAPI = {
+import { AsyncStorage } from 'react-native'
+export const CARDS_STORAGE_KEY ='MobileFlashCards:decks'
 
-  const payload = {
 
+function setDummyData() {
+  const payLoad = {
     React: {
       title: 'React',
       questions: [
@@ -15,7 +17,6 @@ const flashCardAPI = {
         },
       ]
     },
-
     ES6: {
       title: 'ES6',
       questions: [
@@ -29,8 +30,7 @@ const flashCardAPI = {
         },
       ]
     },
-
-    Linux Command Line: {
+    Linux: {
       title: 'Linux Command Line',
       questions: [
         {
@@ -53,7 +53,43 @@ const flashCardAPI = {
     }
   }
 
-  all: function() { return this.payload}
+  AsyncStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(payLoad))
+
+  return payLoad
 }
 
-export default flashCardAPI
+function formatDecks (results) {
+  console.log(`formatDecks with ${results}`)
+  return JSON.parse(results)
+}
+
+
+export function composeCardData (results) {
+  console.log(`composeCardData with ${results}`)
+  return results === null
+    ? setDummyData()
+    : formatDecks(results)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

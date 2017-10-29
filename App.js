@@ -6,6 +6,10 @@ import { darkBlue, white } from './utils/colors'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import DeckView from './components/DeckView'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import flashCardReducer from './reducers'
+import { Provider } from 'react-redux'
 
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
@@ -15,6 +19,11 @@ function FlashCardStatusBar ({backgroundColor, ...props}) {
     </View>
   )
 }
+
+const store = createStore(
+  flashCardReducer,
+  applyMiddleware(thunk)
+)
 
 const Tabs = TabNavigator({
   DeckList: {
@@ -69,10 +78,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex:1}}>
-        <FlashCardStatusBar backgroundColor={ darkBlue } barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{flex:1}}>
+          <FlashCardStatusBar backgroundColor={ darkBlue } barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

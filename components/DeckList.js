@@ -1,40 +1,32 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import { connect } from 'react-redux'
 import { darkBlue, secondBlue, white } from '../utils/colors'
+import { fetchAllDecks } from '../actions'
 
 class DeckList extends React.Component {
 
+  state = {
+    ready: false
+  }
+
+  componentDidMount () {
+    this.props.dispatch(fetchAllDecks())
+  }
+
   render () {
+    console.log(`****************************************`)
+    console.log(`inside DeckList with props ${this.props}`)
     return (
       <View style={styles.container}>
-
         <TouchableOpacity
           style={styles.row}
-          onPress={()=>console.log('this.props.navigate :', this.props.navigate)}>
+          onPress={()=>console.log('you clicked me!')}>
           <View style={styles.deckStats}>
             <Text style={styles.header}>Linux Command Line</Text>
             <Text style={styles.subHead}>Cards 3</Text>
           </View>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.row}
-          onPress={()=>console.log('this.props.navigate :', this.props.navigate)}>
-          <View style={styles.deckStats}>
-            <Text style={styles.header}>Linux Command Line</Text>
-            <Text style={styles.subHead}>Cards 3</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.row}
-          onPress={()=>console.log('this.props.navigate :', this.props.navigate)}>
-          <View style={styles.deckStats}>
-            <Text style={styles.header}>Linux Command Line</Text>
-            <Text style={styles.subHead}>Cards 3</Text>
-          </View>
-        </TouchableOpacity>
-
       </View>
     )
   }
@@ -71,6 +63,13 @@ const styles = StyleSheet.create({
   },
 })
 
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
 
+export default connect(
+  mapStateToProps,
+)(DeckList)
 
-export default DeckList
