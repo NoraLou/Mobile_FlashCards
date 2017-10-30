@@ -6,9 +6,7 @@ export const ADD_DECK = 'ADD_DECK'
 
 export const fetchAllDecks = () => (dispatch) => {
   API.fetchAllDecks().then(
-    (decks) => {
-    console.log(`inside actions..API.fetchAllDecks returns with decks ${decks}`)
-    return dispatch(receiveDecks(decks)})
+    (decks) => dispatch(receiveDecks(decks))
   );
 };
 

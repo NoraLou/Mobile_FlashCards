@@ -15,19 +15,20 @@ class DeckList extends React.Component {
   }
 
   render () {
-    console.log(`****************************************`)
-    console.log(`inside DeckList with props ${this.props}`)
+    const { decks } = this.props
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.row}
-          onPress={()=>console.log('you clicked me!')}>
-          <View style={styles.deckStats}>
-            <Text style={styles.header}>Linux Command Line</Text>
-            <Text style={styles.subHead}>Cards 3</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+       {decks.map((d) => (
+          <TouchableOpacity key={d.title}
+            style={styles.row}
+            onPress={()=>console.log('you clicked me!')}>
+            <View style={styles.deckStats}>
+              <Text style={styles.header}>{d.title}</Text>
+              <Text style={styles.subHead}>{d.questions.length}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+       </View>
     )
   }
 }
@@ -63,9 +64,9 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps (decks) {
+function mapStateToProps ( decks) {
   return {
-    decks
+    decks : Object.keys(decks).map(title => decks[title])
   }
 }
 

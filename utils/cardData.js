@@ -3,6 +3,7 @@ export const CARDS_STORAGE_KEY ='MobileFlashCards:decks'
 
 
 function setDummyData() {
+
   const payLoad = {
     React: {
       title: 'React',
@@ -54,18 +55,17 @@ function setDummyData() {
   }
 
   AsyncStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(payLoad))
-
   return payLoad
 }
 
 function formatDecks (results) {
-  console.log(`formatDecks with ${results}`)
+  //console.log(`formatDecks with ${results}`)
   return JSON.parse(results)
 }
 
 
 export function composeCardData (results) {
-  console.log(`composeCardData with ${results}`)
+  //console.log(`composeCardData with ${results}`)
   return results === null
     ? setDummyData()
     : formatDecks(results)
