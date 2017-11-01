@@ -6,10 +6,13 @@ import { darkBlue, white } from './utils/colors'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import DeckView from './components/DeckView'
+import QuizView from './components/QuizView'
+import AddCard from './components/AddCard'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import flashCardReducer from './reducers'
 import { Provider } from 'react-redux'
+
 
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
@@ -50,7 +53,7 @@ const Tabs = TabNavigator({
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
-        height: 3
+        height: 3,
       },
       shadowRadius: 6,
       shadowOpacity: 1,
@@ -66,13 +69,34 @@ const MainNavigator = StackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    path: 'deck/:slug',
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
         backgroundColor: darkBlue,
       }
     }
-  }
+  },
+  QuizView: {
+    screen: QuizView,
+    path: 'quiz/:slug',
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    path: 'addCard/:slug',
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: darkBlue,
+      }
+    }
+  },
 })
 
 export default class App extends React.Component {

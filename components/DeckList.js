@@ -15,13 +15,17 @@ class DeckList extends React.Component {
   }
 
   render () {
+    // console.log("Deck List this.props :", this.props)
     const { decks } = this.props
     return (
       <View style={styles.container}>
        {decks.map((d) => (
           <TouchableOpacity key={d.title}
             style={styles.row}
-            onPress={()=>console.log('you clicked me!')}>
+            onPress={()=> this.props.navigation.navigate(
+              'DeckView',
+              {slug: d.slug}
+            )}>
             <View style={styles.deckStats}>
               <Text style={styles.header}>{d.title}</Text>
               <Text style={styles.subHead}>{d.questions.length}</Text>

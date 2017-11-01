@@ -6,6 +6,7 @@ function setDummyData() {
 
   const payLoad = {
     React: {
+      slug: 'react',
       title: 'React',
       questions: [
         {
@@ -19,6 +20,7 @@ function setDummyData() {
       ]
     },
     ES6: {
+      slug: 'es6',
       title: 'ES6',
       questions: [
         {
@@ -32,6 +34,7 @@ function setDummyData() {
       ]
     },
     Linux: {
+      slug: 'linux-command-line',
       title: 'Linux Command Line',
       questions: [
         {
