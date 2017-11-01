@@ -17,4 +17,16 @@ function receiveDecks ( decks ){
   }
 }
 
+export const addCardToDeck = (titleKey, question) => (dispatch) => {
+  API.addCardToDeck(titleKey, question).then(
+    (titleKey, card) => dispatch(receiveCard(card,titleKey))
+  )
+}
 
+function receiveCard ( card, titleKey ){
+  return {
+    type: ADD_CARD,
+    card,
+    titleKey
+  }
+}

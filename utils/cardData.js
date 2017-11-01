@@ -5,7 +5,7 @@ export const CARDS_STORAGE_KEY ='MobileFlashCards:decks'
 function setDummyData() {
 
   const payLoad = {
-    React: {
+    react: {
       slug: 'react',
       title: 'React',
       questions: [
@@ -19,7 +19,7 @@ function setDummyData() {
         },
       ]
     },
-    ES6: {
+    es6: {
       slug: 'es6',
       title: 'ES6',
       questions: [

@@ -8,3 +8,10 @@ export const makeTitle = (str) => {
   return title
 }
 
+export const makeSlug = (str) => {
+  if (str.indexOf(" ") === -1) {
+    return str.toLowerCase()
+  } else {
+    return str = str.replace(/\s+/g, '-').toLowerCase();
+  }
+}

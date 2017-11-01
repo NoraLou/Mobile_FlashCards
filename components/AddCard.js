@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, Platform }
 import { darkBlue, secondBlue, white, green } from '../utils/colors'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
+import { addCardToDeck } from '../actions'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -19,8 +20,8 @@ class AddCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      question: 'add your question',
-      answer: 'add the answer'
+      question: '',
+      answer: ''
     }
   }
 
@@ -29,10 +30,24 @@ class AddCard extends React.Component {
   }
 
   submit = () => {
+    const titleKey = Object.keys(this.props.currDeck)[0]
+    console.log()
+    const question = this.state
+    console.log()
+    console.log('question ', question)
+    this.props.dispatch(addCardToDeck(titleKey, question))
+    //make sure fields are not empty.
+
+
+    //dispatch
+    //success message
+    //redirect back to deck
     console.log("submit!")
   }
 
   render () {
+
+    console.log('this.props.currDeck' , this.props.currDeck)
     return (
       <View style={styles.container}>
           <Text style={styles.header}>Create a New Card</Text>
@@ -91,23 +106,18 @@ const styles = StyleSheet.create({
   },
 })
 
-
-
-
-
-
-
-
-
-
-
-
-function mapStateToProps ( state ) {
+function mapStateToProps ( state, { navigation }) {
+  const { slug } = navigation.state.params
   return {
-    state
+    currDeck : Object.keys(state).filter(deck => state[deck].slug === slug)
+              .reduce((accum,key) => {
+                accum[key] = state[key]
+                return accum
+               },{})
   }
 }
 
 export default connect(
   mapStateToProps,
 )(AddCard)
+

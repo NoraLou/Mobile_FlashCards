@@ -16,25 +16,12 @@ import { connect } from 'react-redux'
 
 
 class DeckView extends React.Component {
-
   static navigationOptions = ({ navigation }) => {
     const { slug }  = navigation.state.params
     const title = makeTitle(slug)
     return {
       title
     }
-  }
-
-  goToQuiz = ( slug ) => {
-    console.log('slug :', slug)
-    this.props.navigation.navigate (
-      'Quiz',
-      {slug}
-    )
-  }
-
-  goToAddCard = () => {
-
   }
 
   render () {
@@ -52,7 +39,7 @@ class DeckView extends React.Component {
               'QuizView',
               {slug: deck.slug}
             )}>
-            <Text style={styles.buttonText}>AddCard</Text>
+            <Text style={styles.buttonText}>Start Quiz</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -61,7 +48,7 @@ class DeckView extends React.Component {
               'AddCard',
               {slug: deck.slug}
             )}>
-            <Text style={styles.buttonText}>Start Quiz</Text>
+            <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>
         </View>
 
@@ -101,8 +88,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps ( state, { navigation }) {
   const { slug } = navigation.state.params
+
   return {
-    currDeck : Object.keys(state).filter(deck => state[deck].slug === 'react').reduce((accum,key) => (accum[key] = state[key]), {})
+    currDeck : Object.keys(state).filter(deck => state[deck].slug === slug).reduce((accum,key) => (accum[key] = state[key]), {})
   }
 }
 
