@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, Button} from 'react-native'
 import { darkBlue, green, white } from '../utils/colors'
-//import { FormLabel, FormInput } from 'react-native-elements'
-
+import { addDeck } from '../actions'
+import { connect } from 'react-redux'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -19,6 +19,16 @@ class NewDeck extends React.Component {
     super(props)
     this.state = { text: 'Deck Title'}
   }
+
+  submit = () => {
+    const title = this.state.text
+    //TODO: validation
+    console.log("title :", title)
+    this.props.dispatch(addDeck(title))
+    //TODO: success message
+    this.props.navigation.goBack()
+  }
+
 
   render () {
     return (
@@ -79,7 +89,13 @@ const styles = StyleSheet.create({
   },
 })
 
+// function mapStateToProps ( decks) {
+//   return {
+//     decks : Object.keys(decks).map(title => decks[title])
+//   }
+// }
 
-
-export default NewDeck
+export default connect(
+  null,
+)(NewDeck)
 

@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import { composeCardData , CARDS_STORAGE_KEY} from './cardData'
+import { makeSlug, generateID } from './helpers'
 
 //To manage your AsyncStorage database, you'll want to create four different helper methods.
 // getDecks: return all of the decks along with their titles, questions, and answers.
@@ -10,7 +11,7 @@ import { composeCardData , CARDS_STORAGE_KEY} from './cardData'
 
 export function fetchAllDecks () {
   //console.log("inside api with fetchAllDecks")
-  AsyncStorage.clear();
+  //AsyncStorage.clear();
   return AsyncStorage.getItem(CARDS_STORAGE_KEY)
     .then(composeCardData)
 }
@@ -25,6 +26,12 @@ export function addCardToDeck (key, question) {
       JSON.stringify({[key]: currDeck})
     )
   })
+}
+
+
+export function addDeck(newDeck) {
+  const key = newDeck.id
+  return AsyncStorage.mergeItem(CARDS_STORAGE_KEY, JSON.stringify({[key]: newDeck}))
 }
 
 

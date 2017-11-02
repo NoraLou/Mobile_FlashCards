@@ -8,7 +8,6 @@ function flashCardReducer (state = {}, action) {
         ...action.decks,
       }
     case ADD_CARD :
-      console.log('action ', action)
       return {
         ...state,
         [action.key]: {
@@ -16,6 +15,15 @@ function flashCardReducer (state = {}, action) {
           questions: [...state[action.key].questions, action.question]
         }
       }
+    case ADD_DECK:
+
+      return {
+        ...state,
+        [action.deck.id]: {
+          ...action.deck,
+        }
+      }
+
     default :
       return state
   }
