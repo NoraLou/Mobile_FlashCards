@@ -25,7 +25,7 @@ class DeckView extends React.Component {
   }
 
   render () {
-    console.log("Deck View this.props :", this.props)
+    //console.log("Deck View this.props :", this.props)
     const deck = this.props.currDeck
     console.log('deck:', deck)
     return (
