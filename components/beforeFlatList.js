@@ -4,28 +4,6 @@ import { connect } from 'react-redux'
 import { darkBlue, secondBlue, white } from '../utils/colors'
 import { fetchAllDecks } from '../actions'
 
-
-
-const DeckItem = (props) => {
-  const deckItem = this.props
-  console.log("deckItem :", deckItem)
-  return (
-    <Text>Balls</Text>
-    // <TouchableOpacity
-    //   style={styles.row}
-    //   onPress={()=> this.props.navigation.navigate(
-    //   'DeckView',
-    //   {slug: deckItem.slug}
-    //  )}>
-    //   <View style={styles.deckItemStats}>
-    //     <Text style={styles.header}>{deckItem.title}</Text>
-    //     <Text style={styles.subHead}>{deckItem.questions.length}</Text>
-    //   </View>
-    // </TouchableOpacity>
-  )
-}
-
-
 class DeckList extends React.Component {
 
   state = {
@@ -41,9 +19,18 @@ class DeckList extends React.Component {
     const { decks } = this.props
     return (
       <View style={styles.container}>
-       {decks.map((deck) => (
-         <DeckItem deckItem={deck} navigation={this.props.navigation} />
-         // <Text key={deck.id}>{deck.title}</Text>
+       {decks.map((d) => (
+          <TouchableOpacity key={d.id}
+            style={styles.row}
+            onPress={()=> this.props.navigation.navigate(
+              'DeckView',
+              {slug: d.slug}
+            )}>
+            <View style={styles.deckStats}>
+              <Text style={styles.header}>{d.title}</Text>
+              <Text style={styles.subHead}>{d.questions.length}</Text>
+            </View>
+          </TouchableOpacity>
         ))}
        </View>
     )
@@ -90,4 +77,5 @@ function mapStateToProps ( decks) {
 export default connect(
   mapStateToProps,
 )(DeckList)
+
 
