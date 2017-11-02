@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native'
 import { connect } from 'react-redux'
 import { darkBlue, secondBlue, white } from '../utils/colors'
 import { fetchAllDecks } from '../actions'
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    flex: 1,
     marginBottom: 20,
     borderWidth: 1,
     borderColor: darkBlue,
     justifyContent: 'center',
     alignItems:'center',
+    height: 150,
   },
   deckStats: {
     alignItems:'center',

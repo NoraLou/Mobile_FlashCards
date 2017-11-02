@@ -19,6 +19,44 @@ function setDummyData() {
           a: 'The componentDidMount lifecycle event'
         },
       ]
+    },
+   'AEOwEkJZ': {
+      id: 'AEOwEkJZ',
+      slug: 'es6',
+      title: 'ES6',
+      questions: [
+        {
+          q: 'What does the spread operator do? ',
+          a: 'It takes every single item from an interable and applies it to the containing element'
+        },
+        {
+          q: 'What are two new Array methods?',
+          a: 'Array.find() & Array.findIndex()'
+        },
+      ]
+    },
+    '4qcly2lp': {
+      id: '4qcly2lp',
+      slug: 'linux-command-line',
+      title: 'Linux Command Line',
+      questions: [
+        {
+          q: 'What does the commad "cat filename.txt" do ?',
+          a: 'It will display the contents of the given file in the shell'
+        },
+        {
+          q: 'What does the command "chmod u + x" do?',
+          a: 'It changes user permissions to read and write'
+        },
+        {
+          q: 'What does the command "ls -a" do?',
+          a: 'It lists all the file names (even the hidden system directories that start wiht a "."'
+        },
+        {
+          q: 'What does the command "pwd" do?',
+          a: 'It displays the path to our current working directory'
+        },
+      ]
     }
   }
 
@@ -38,30 +76,3 @@ export function composeCardData (results) {
     ? setDummyData()
     : formatDecks(results)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

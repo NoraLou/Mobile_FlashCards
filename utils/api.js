@@ -11,7 +11,7 @@ import { makeSlug, generateID } from './helpers'
 
 export function fetchAllDecks () {
   //console.log("inside api with fetchAllDecks")
-  //AsyncStorage.clear();
+  // AsyncStorage.clear();
   return AsyncStorage.getItem(CARDS_STORAGE_KEY)
     .then(composeCardData)
 }
