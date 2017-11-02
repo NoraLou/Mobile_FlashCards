@@ -34,7 +34,8 @@ class DeckView extends React.Component {
           <Text style={styles.header}>{deck.title}</Text>
           <Text>{deck.questions.length} Cards</Text>
           <TouchableOpacity
-            style={styles.button}
+            disabled={ deck.questions.length === 0}
+            style={ deck.questions.length ? styles.button : styles.disabled}
             onPress={()=> this.props.navigation.navigate(
               'QuizView',
               {slug: deck.slug}
@@ -71,6 +72,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: darkBlue,
     padding: 10,
+  },
+  disabled: {
+    backgroundColor:'#A9A9A9',
+    width: 200,
+    marginTop: 10,
+    marginBottom: 10,
   },
   button: {
     backgroundColor: darkBlue,

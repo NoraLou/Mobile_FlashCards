@@ -45,55 +45,53 @@ class QuizView extends React.Component {
     const deck = this.props.currDeck
     const { questions } = deck
     const totalCards = questions.length ? questions.length: 0
+    const currQuestion = questions[this.state.questionIdx]
+    const inProgress = (this.state.questionIdx < totalCards) ? true : false
 
-    let currQuestion = questions[this.state.questionIdx]
 
-    let inProgress = (this.state.questionIdx < totalCards) ? true : false
+
+    if (inProgress) {
+
+      return (
+        <View style={styles.centerContent}>
+          <Text>{ `${(this.state.questionIdx + 1)} / ${totalCards}`}</Text>
+          <View style={styles.cardItem}>
+          { this.state.showAnswer ? (
+              <View>
+                <Text style={styles.questionText}>{currQuestion.a}</Text>
+                <TextButton onPress={this.toggleCardState}>question</TextButton>
+              </View>
+            ):(
+              <View>
+                <Text style={styles.questionText}>{currQuestion.q}</Text>
+                <TextButton onPress={this.toggleCardState}>answer</TextButton>
+              </View>
+            )
+          }
+          </View>
+          <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('correct')}>
+            <Text style={styles.buttonText}>Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('wrong')}>
+            <Text style={styles.buttonText}>Incorrect</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
 
     return (
-      <View style={styles.container}>
-
-        { inProgress ? (
-          <View style={styles.centerContent}>
-            <Text>{ `${(this.state.questionIdx + 1)} / ${totalCards}`}</Text>
-            <View style={styles.cardItem}>
-            { this.state.showAnswer ? (
-                <View>
-                  <Text style={styles.questionText}>{currQuestion.a}</Text>
-                  <TextButton onPress={this.toggleCardState}>question</TextButton>
-                </View>
-              ):(
-                <View>
-                  <Text style={styles.questionText}>{currQuestion.q}</Text>
-                  <TextButton onPress={this.toggleCardState}>answer</TextButton>
-                </View>
-              )
-            }
-            </View>
-            <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('correct')}>
-              <Text style={styles.buttonText}>Correct</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('wrong')}>
-              <Text style={styles.buttonText}>Incorrect</Text>
-            </TouchableOpacity>
-          </View>
-
-          ):(
-
-          <View style={styles.centerContent}>
-            <Text>{`You got ${ (((this.state.correct)/totalCards)*100) } percent correct`}</Text>
-            <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
-              <Text style={styles.buttonText}>Restart Quiz</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}
-              onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
-              <Text style={styles.buttonText}>Back to Deck</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-
+      <View style={styles.centerContent}>
+        <Text>{`You got ${ (((this.state.correct)/totalCards)*100) } percent correct`}</Text>
+        <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
+          <Text style={styles.buttonText}>Restart Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}
+          onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
+          <Text style={styles.buttonText}>Back to Deck</Text>
+        </TouchableOpacity>
       </View>
     )
+
   }
 }
 
