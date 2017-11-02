@@ -8,8 +8,6 @@ import { composeCardData , CARDS_STORAGE_KEY} from './cardData'
 // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title.
 
 
-
-
 export function fetchAllDecks () {
   //console.log("inside api with fetchAllDecks")
   AsyncStorage.clear();
@@ -18,11 +16,25 @@ export function fetchAllDecks () {
 }
 
 
-export function addCardToDeck (titleKey, question) {
+export function addCardToDeck (key, question) {
   return AsyncStorage.getItem(CARDS_STORAGE_KEY)
-  .then((res, titleKey) => {
-    console.log(`API.addCardToDeck with res ${res}`)
-    debugger
-    return true
+  .then(function(res){
+    let currDeck = JSON.parse(res)[key]
+    currDeck.questions.push(question)
+    return AsyncStorage.mergeItem(CARDS_STORAGE_KEY,
+      JSON.stringify({[key]: currDeck})
+    )
   })
 }
+
+
+// export function addCardToDeck (deckKey, question) {
+//   return AsyncStorage.getItem(CARDS_STORAGE_KEY)
+//   .then((res, deckKey) => {
+//     console.log(`API.addCardToDeck with res ${res}`)
+//     debugger
+//     return true
+//   })
+// }
+
+

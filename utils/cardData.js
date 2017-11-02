@@ -5,7 +5,8 @@ export const CARDS_STORAGE_KEY ='MobileFlashCards:decks'
 function setDummyData() {
 
   const payLoad = {
-    react: {
+    'p9hc9Kuc': {
+      id: 'p9hc9Kuc',
       slug: 'react',
       title: 'React',
       questions: [
@@ -19,7 +20,8 @@ function setDummyData() {
         },
       ]
     },
-    es6: {
+   'AEOwEkJZ': {
+      id: 'AEOwEkJZ',
       slug: 'es6',
       title: 'ES6',
       questions: [
@@ -33,7 +35,8 @@ function setDummyData() {
         },
       ]
     },
-    Linux: {
+    '4qcly2lp': {
+      id: '4qcly2lp',
       slug: 'linux-command-line',
       title: 'Linux Command Line',
       questions: [
@@ -73,6 +76,10 @@ export function composeCardData (results) {
     ? setDummyData()
     : formatDecks(results)
 }
+
+
+
+
 
 
 

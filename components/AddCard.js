@@ -20,8 +20,8 @@ class AddCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      question: '',
-      answer: ''
+      q: '',
+      a: ''
     }
   }
 
@@ -30,35 +30,33 @@ class AddCard extends React.Component {
   }
 
   submit = () => {
-    const titleKey = Object.keys(this.props.currDeck)[0]
-    console.log()
-    const question = this.state
-    console.log()
-    console.log('question ', question)
-    this.props.dispatch(addCardToDeck(titleKey, question))
-    //make sure fields are not empty.
 
+    //TODO : validation
+    const deckKey = Object.keys(this.props.currDeck)[0]
+    const question = {
+      q : this.state.q,
+      a : this.state.a
+    }
+    this.props.dispatch(addCardToDeck(deckKey, question))
+    //TODO: success message
+    this.props.navigation.goBack()
 
-    //dispatch
-    //success message
-    //redirect back to deck
-    console.log("submit!")
   }
 
   render () {
 
-    console.log('this.props.currDeck' , this.props.currDeck)
+    //console.log('this.props.currDeck' , this.props.currDeck)
     return (
       <View style={styles.container}>
           <Text style={styles.header}>Create a New Card</Text>
           <TextInput
               style={styles.formInput}
-              onChangeText={(question) => this.setState({question})}
-              value={this.state.question}/>
+              onChangeText={(q) => this.setState({q})}
+              value={this.state.q}/>
           <TextInput
               style={styles.formInput}
-              onChangeText={(answer) => this.setState({answer})}
-              value={this.state.answer}/>
+              onChangeText={(a) => this.setState({a})}
+              value={this.state.a}/>
           <SubmitBtn onPress={this.submit} />
       </View>
     )

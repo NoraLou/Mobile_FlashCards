@@ -7,9 +7,19 @@ function flashCardReducer (state = {}, action) {
         ...state,
         ...action.decks,
       }
+    case ADD_CARD :
+      console.log('action ', action)
+      return {
+        ...state,
+        [action.key]: {
+          ...state[action.key],
+          questions: [...state[action.key].questions, action.question]
+        }
+      }
     default :
       return state
   }
 }
 
 export default flashCardReducer
+
