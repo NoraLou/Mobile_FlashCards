@@ -4,6 +4,8 @@ import { darkBlue, secondBlue, white } from '../utils/colors'
 import { makeTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
+import { clearLocalNotification } from '../utils/helpers'
+
 
 class QuizView extends React.Component {
 
@@ -49,31 +51,17 @@ class QuizView extends React.Component {
     const inProgress = (this.state.questionIdx < totalCards) ? true : false
 
 
-
-    if (inProgress) {
-
+    if (!inProgress) {
+      clearLocalNotification()
       return (
         <View style={styles.centerContent}>
-          <Text>{ `${(this.state.questionIdx + 1)} / ${totalCards}`}</Text>
-          <View style={styles.cardItem}>
-          { this.state.showAnswer ? (
-              <View>
-                <Text style={styles.questionText}>{currQuestion.a}</Text>
-                <TextButton onPress={this.toggleCardState}>question</TextButton>
-              </View>
-            ):(
-              <View>
-                <Text style={styles.questionText}>{currQuestion.q}</Text>
-                <TextButton onPress={this.toggleCardState}>answer</TextButton>
-              </View>
-            )
-          }
-          </View>
-          <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('correct')}>
-            <Text style={styles.buttonText}>Correct</Text>
+          <Text>{`You got ${ (((this.state.correct)/totalCards)*100) } percent correct`}</Text>
+          <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
+            <Text style={styles.buttonText}>Restart Quiz</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('wrong')}>
-            <Text style={styles.buttonText}>Incorrect</Text>
+          <TouchableOpacity style={styles.button}
+            onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
+            <Text style={styles.buttonText}>Back to Deck</Text>
           </TouchableOpacity>
         </View>
       )
@@ -81,17 +69,29 @@ class QuizView extends React.Component {
 
     return (
       <View style={styles.centerContent}>
-        <Text>{`You got ${ (((this.state.correct)/totalCards)*100) } percent correct`}</Text>
-        <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
-          <Text style={styles.buttonText}>Restart Quiz</Text>
+        <Text>{ `${(this.state.questionIdx + 1)} / ${totalCards}`}</Text>
+        <View style={styles.cardItem}>
+        { this.state.showAnswer ? (
+            <View>
+              <Text style={styles.questionText}>{currQuestion.a}</Text>
+              <TextButton onPress={this.toggleCardState}>question</TextButton>
+            </View>
+          ):(
+            <View>
+              <Text style={styles.questionText}>{currQuestion.q}</Text>
+              <TextButton onPress={this.toggleCardState}>answer</TextButton>
+            </View>
+          )
+        }
+        </View>
+        <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('correct')}>
+          <Text style={styles.buttonText}>Correct</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-          onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
-          <Text style={styles.buttonText}>Back to Deck</Text>
+        <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('wrong')}>
+          <Text style={styles.buttonText}>Incorrect</Text>
         </TouchableOpacity>
       </View>
     )
-
   }
 }
 

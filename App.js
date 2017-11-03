@@ -12,6 +12,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import flashCardReducer from './reducers'
 import { Provider } from 'react-redux'
+import { setLocalNotification} from './utils/helpers'
 
 
 
@@ -100,6 +101,11 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+
+  componentDidMount(){
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -110,4 +116,5 @@ export default class App extends React.Component {
       </Provider>
     );
   }
+
 }
