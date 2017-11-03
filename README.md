@@ -13,6 +13,8 @@ This project requires Node v6 or later on your machine and yarn or npm v3, or v4
 
 To install yarn please see (https://yarnpkg.com/lang/en/docs/install/)
 
+The install steps below rely on xcode being installed on your machine. To view the app in another device or simulator please refer to the documentation [Here](https://github.com/react-community/create-react-native-app).
+
 ## Install steps
 
 `$ git clone https://github.com/NoraLou/Mobile_FlashCards`
@@ -25,6 +27,3 @@ To install yarn please see (https://yarnpkg.com/lang/en/docs/install/)
 
 (to run in an xcode simulator on iphone )
 `$ i `
-
-to run in other devices, simulators please run...
-`create-react-native-app / expo` this will instruct you on how to launch in your respective available simulator or device.
