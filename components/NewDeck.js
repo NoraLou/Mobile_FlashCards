@@ -9,7 +9,7 @@ function SubmitBtn ({ onPress }) {
     <TouchableOpacity
       style={styles.submitBtn}
       onPress={onPress}>
-        <Text style={{color: white}}>SUBMIT</Text>
+        <Text style={{color: white}}>CREATE DECK</Text>
     </TouchableOpacity>
   )
 }
