@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Platform, Button} from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView} from 'react-native'
 import { darkBlue, green, white } from '../utils/colors'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 function SubmitBtn ({ onPress }) {
   return (
     <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+      style={styles.submitBtn}
       onPress={onPress}>
         <Text style={{color: white}}>SUBMIT</Text>
     </TouchableOpacity>
@@ -17,31 +17,39 @@ function SubmitBtn ({ onPress }) {
 class NewDeck extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: 'Deck Title'}
+    this.state = { text: ''}
   }
 
   submit = () => {
     const title = this.state.text
-    //TODO: validation
-    console.log("title :", title)
+    const hasErr = (this.state.text == false)
+    if (hasErr) {
+      Alert.alert(
+        'Error Saving!',
+        'You must have text in the Title field',
+        [
+          {text: 'Complete Title'},
+        ],
+      )
+      return false
+    }
     this.props.dispatch(addDeck(title))
-    //TODO: success message
     this.props.navigation.goBack()
   }
 
 
   render () {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <View>
-          <Text style={styles.formLabel}>Enter Your Deck Name</Text>
+          <Text style={styles.formLabel}>Enter Your Deck Title</Text>
           <TextInput
               style={styles.formInput}
               onChangeText={(text) => this.setState({text})}
               value={this.state.text}/>
           </View>
           <SubmitBtn onPress={this.submit} />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -61,14 +69,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     paddingTop: 20,
     paddingBottom: 20,
+    fontWeight: 'bold',
   },
   formInput: {
     borderColor: darkBlue,
     borderWidth: 1,
     padding: 15,
     height: 50,
+    backgroundColor: 'white',
   },
-  iosSubmitBtn: {
+  submitBtn: {
     backgroundColor: darkBlue,
     alignItems: 'center',
     padding: 10,
@@ -76,24 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-  AndroidSubmitBtn: {
-    backgroundColor: green,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 })
-
-// function mapStateToProps ( decks) {
-//   return {
-//     decks : Object.keys(decks).map(title => decks[title])
-//   }
-// }
 
 export default connect(
   null,

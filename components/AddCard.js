@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, Platform } from 'react-native'
-import { darkBlue, secondBlue, white, green } from '../utils/colors'
+import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, Alert, KeyboardAvoidingView } from 'react-native'
+import { darkBlue, white, red} from '../utils/colors'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
 import { addCardToDeck } from '../actions'
@@ -8,7 +8,7 @@ import { addCardToDeck } from '../actions'
 function SubmitBtn ({ onPress }) {
   return (
     <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+      style={styles.submitBtn}
       onPress={onPress}>
         <Text style={{color: white}}>SUBMIT</Text>
     </TouchableOpacity>
@@ -21,7 +21,7 @@ class AddCard extends React.Component {
     super(props)
     this.state = {
       q: '',
-      a: ''
+      a: '',
     }
   }
 
@@ -30,35 +30,42 @@ class AddCard extends React.Component {
   }
 
   submit = () => {
-
-    //TODO : validation
+    const hasError = (this.state.a == false || this.state.b == false)
+    if (hasError) {
+      Alert.alert(
+        'Error Saving!',
+        'You must have text in both fields',
+        [
+          {text: 'Complete Card'},
+        ],
+      )
+      return false
+    }
     const deckKey = Object.keys(this.props.currDeck)[0]
     const question = {
       q : this.state.q,
       a : this.state.a
     }
     this.props.dispatch(addCardToDeck(deckKey, question))
-    //TODO: success message
     this.props.navigation.goBack()
-
   }
 
   render () {
-
-    //console.log('this.props.currDeck' , this.props.currDeck)
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
           <Text style={styles.header}>Create a New Card</Text>
+          <Text style={styles.label}>Your Question:</Text>
           <TextInput
               style={styles.formInput}
               onChangeText={(q) => this.setState({q})}
               value={this.state.q}/>
+           <Text style={styles.label}>Your Answer:</Text>
           <TextInput
               style={styles.formInput}
               onChangeText={(a) => this.setState({a})}
               value={this.state.a}/>
           <SubmitBtn onPress={this.submit} />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -67,40 +74,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingTop: 40,
+    backgroundColor: 'gainsboro',
   },
   header: {
     textAlign: 'center',
     color: darkBlue,
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: 'bold',
     paddingTop: 15,
-    paddingBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    paddingTop: 20,
+    paddingBottom: 5,
+    color: darkBlue,
+    fontWeight: 'bold',
   },
   formInput: {
     borderColor: darkBlue,
     borderWidth: 1,
     padding: 15,
     height: 50,
-    marginTop: 20,
+    backgroundColor: white,
   },
-  iosSubmitBtn: {
+  submitBtn: {
     backgroundColor: darkBlue,
     alignItems: 'center',
     padding: 10,
     height: 40,
     marginTop: 20,
     marginBottom: 20,
-  },
-  AndroidSubmitBtn: {
-    backgroundColor: green,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
 

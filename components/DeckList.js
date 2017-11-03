@@ -15,13 +15,12 @@ class DeckList extends React.Component {
   }
 
   render () {
-    //console.log("Deck List this.props :", this.props)
     const { decks } = this.props
     return (
       <ScrollView style={styles.container}>
        {decks.map((d) => (
           <TouchableOpacity key={d.id}
-            style={styles.row}
+            style={styles.cardItem}
             onPress={()=> this.props.navigation.navigate(
               'DeckView',
               {slug: d.slug}
@@ -42,16 +41,18 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     padding: 20,
-    backgroundColor: white,
   },
-  row: {
+  cardItem: {
     flexDirection: 'row',
     marginBottom: 20,
-    borderWidth: 1,
     borderColor: darkBlue,
     justifyContent: 'center',
     alignItems:'center',
     height: 150,
+    backgroundColor: white,
+    shadowColor:'rgba(8, 76, 97, 0.5)',
+    shadowRadius: 3,
+    shadowOpacity: 0.5,
   },
   deckStats: {
     alignItems:'center',

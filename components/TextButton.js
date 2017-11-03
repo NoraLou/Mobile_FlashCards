@@ -14,5 +14,6 @@ const styles = StyleSheet.create({
   reset: {
     textAlign: 'center',
     color: red,
+    fontWeight: 'bold',
   }
 })

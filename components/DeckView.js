@@ -5,16 +5,6 @@ import { makeTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
 
 
-// function QuizBtn ({ onPress, text, color }) {
-//   return (
-//     <TouchableOpacity
-//       onPress={onPress}>
-//       <Button=title{title}></Button>
-//     </TouchableOpacity>
-//   )
-// }
-
-
 class DeckView extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { slug }  = navigation.state.params
@@ -25,14 +15,12 @@ class DeckView extends React.Component {
   }
 
   render () {
-    //console.log("Deck View this.props :", this.props)
     const deck = this.props.currDeck
-    console.log('deck:', deck)
     return (
       <View style={styles.container}>
         <View style={styles.centerContent}>
           <Text style={styles.header}>{deck.title}</Text>
-          <Text>{deck.questions.length} Cards</Text>
+          <Text style={[styles.header, {fontSize:20}]}>{deck.questions.length} Cards</Text>
           <TouchableOpacity
             disabled={ deck.questions.length === 0}
             style={ deck.questions.length ? styles.button : styles.disabled}
@@ -69,9 +57,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    fontSize: 40,
+    fontSize: 30,
     color: darkBlue,
     padding: 10,
+    fontWeight: 'bold',
   },
   disabled: {
     backgroundColor:'#A9A9A9',
@@ -84,7 +73,6 @@ const styles = StyleSheet.create({
     width: 200,
     marginTop: 10,
     marginBottom: 10,
-
   },
   buttonText:{
     color: white,

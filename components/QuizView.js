@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native'
-import { darkBlue, secondBlue, white } from '../utils/colors'
+import { darkBlue, white, red, green } from '../utils/colors'
 import { makeTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
 import TextButton from './TextButton'
@@ -32,7 +32,6 @@ class QuizView extends React.Component {
   }
 
   toggleCardState = () => {
-    //TODO Quick fade animation
     this.setState(() => ({showAnswer: !this.state.showAnswer}))
   }
 
@@ -54,22 +53,28 @@ class QuizView extends React.Component {
     if (!inProgress) {
       clearLocalNotification()
       return (
-        <View style={styles.centerContent}>
-          <Text>{`You got ${ (((this.state.correct)/totalCards)*100) } percent correct`}</Text>
-          <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
-            <Text style={styles.buttonText}>Restart Quiz</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}
-            onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
-            <Text style={styles.buttonText}>Back to Deck</Text>
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <View style={styles.cardItem}>
+            <Text style={styles.questionText}>{`You got ${ Math.round((((this.state.correct)/totalCards)*100)) } percent correct`}</Text>
+          </View>
+          <View style={styles.centerContent}>
+            <TouchableOpacity style={styles.button} onPress={this.resetQuiz}>
+              <Text style={styles.buttonText}>Restart Quiz</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+              onPress={()=> this.props.navigation.navigate('DeckView', {slug: deck.slug})}>
+              <Text style={styles.buttonText}>Back to Deck</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )
     }
 
     return (
-      <View style={styles.centerContent}>
-        <Text>{ `${(this.state.questionIdx + 1)} / ${totalCards}`}</Text>
+      <View style={styles.container}>
+        <Text style={{ fontSize:20, color: darkBlue, paddingBottom: 20}}>
+          { `${(this.state.questionIdx + 1)} / ${totalCards}`}
+        </Text>
         <View style={styles.cardItem}>
         { this.state.showAnswer ? (
             <View>
@@ -84,12 +89,14 @@ class QuizView extends React.Component {
           )
         }
         </View>
-        <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('correct')}>
-          <Text style={styles.buttonText}>Correct</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={()=> this.handleAnswer('wrong')}>
-          <Text style={styles.buttonText}>Incorrect</Text>
-        </TouchableOpacity>
+        <View style={styles.centerContent}>
+          <TouchableOpacity style={[styles.button, {backgroundColor:green}]} onPress={()=> this.handleAnswer('correct')}>
+            <Text style={styles.buttonText}>Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, {backgroundColor:red}]} onPress={()=> this.handleAnswer('wrong')}>
+            <Text style={styles.buttonText}>Incorrect</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -98,20 +105,26 @@ class QuizView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     backgroundColor: 'gainsboro'
   },
   centerContent: {
-    paddingTop: 40,
-    alignItems: 'center',
+    alignItems:'center',
   },
   cardItem: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    borderColor: darkBlue,
+    justifyContent: 'center',
+    alignItems:'center',
+    height: 150,
     backgroundColor: white,
-    padding: 20,
-    marginBottom: 40,
+    shadowColor:'rgba(8, 76, 97, 0.5)',
+    shadowRadius: 3,
+    shadowOpacity: 0.5,
   },
   questionText: {
-    fontSize: 35,
+    fontSize: 20,
     textAlign: 'center',
     color: darkBlue,
     padding: 10,

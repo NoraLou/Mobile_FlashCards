@@ -13,6 +13,7 @@ import thunk from 'redux-thunk'
 import flashCardReducer from './reducers'
 import { Provider } from 'react-redux'
 import { setLocalNotification} from './utils/helpers'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 
 
@@ -48,6 +49,16 @@ const Tabs = TabNavigator({
   },
   tabBarOptions: {
     activeTintColor: Platform.OS === 'ios' ? darkBlue : white,
+    labelStyle: {
+      fontSize: 16,
+      color: darkBlue,
+      fontWeight:'bold',
+      justifyContent: 'center',
+    },
+    tabStyle: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     style: {
       height: 56,
       backgroundColor: Platform.OS === 'ios' ? white : darkBlue,
