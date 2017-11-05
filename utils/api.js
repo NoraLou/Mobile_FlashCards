@@ -3,7 +3,7 @@ import { composeCardData , CARDS_STORAGE_KEY} from './cardData'
 import { makeSlug, generateID } from './helpers'
 
 export function fetchAllDecks () {
-  // AsyncStorage.clear();
+  AsyncStorage.clear();
   return AsyncStorage.getItem(CARDS_STORAGE_KEY)
     .then(composeCardData)
 }
