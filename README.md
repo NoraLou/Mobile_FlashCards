@@ -15,6 +15,8 @@ To install yarn please see (https://yarnpkg.com/lang/en/docs/install/)
 
 The install steps below rely on xcode being installed on your machine. To view the app in another device or simulator please refer to the documentation [Here](https://github.com/react-community/create-react-native-app).
 
+This project uses Expo to asssit with device simulation to learn more about device simulation options with Expo please refer to the documentation [Here](https://docs.expo.io/versions/latest/index.html).
+
 ## Install steps
 
 `$ git clone https://github.com/NoraLou/Mobile_FlashCards`

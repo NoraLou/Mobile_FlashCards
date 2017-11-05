@@ -51,7 +51,7 @@ const Tabs = TabNavigator({
     activeTintColor: Platform.OS === 'ios' ? darkBlue : white,
     labelStyle: {
       fontSize: 16,
-      color: darkBlue,
+      color: Platform.OS === 'ios' ? darkBlue : white,
       fontWeight:'bold',
       justifyContent: 'center',
     },
@@ -127,5 +127,4 @@ export default class App extends React.Component {
       </Provider>
     );
   }
-
 }
