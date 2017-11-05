@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native'
 import { darkBlue, secondBlue, white } from '../utils/colors'
 import { makeTitle } from '../utils/helpers'
 import { connect } from 'react-redux'
-
+import { AppLoading } from 'expo'
 
 class DeckView extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -15,33 +15,46 @@ class DeckView extends React.Component {
   }
 
   render () {
+
     const deck = this.props.currDeck
-    return (
-      <View style={styles.container}>
-        <View style={styles.centerContent}>
-          <Text style={styles.header}>{deck.title}</Text>
-          <Text style={[styles.header, {fontSize:20}]}>{deck.questions.length} Cards</Text>
-          <TouchableOpacity
-            disabled={ deck.questions.length === 0}
-            style={ deck.questions.length ? styles.button : styles.disabled}
-            onPress={()=> this.props.navigation.navigate(
-              'QuizView',
-              {slug: deck.slug}
-            )}>
-            <Text style={styles.buttonText}>Start Quiz</Text>
-          </TouchableOpacity>
+    const isEmpty = Object.keys(deck).length === 0 ? true : false
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={()=> this.props.navigation.navigate(
-              'AddCard',
-              {slug: deck.slug}
-            )}>
-            <Text style={styles.buttonText}>Add Card</Text>
-          </TouchableOpacity>
+    if (!isEmpty) {
+      const hasQuestions = deck.questions.length === 0 ? false : true
+      return (
+        <View style={styles.container}>
+          <View style={styles.centerContent}>
+            <Text style={styles.header}>{deck.title}</Text>
+            <Text style={[styles.header, {fontSize:20}]}>
+              { hasQuestions
+                ? `${deck.questions.length} Cards`
+                : `Please add some questions to quiz yourself on.`
+              }
+            </Text>
+           <TouchableOpacity
+              disabled={ !hasQuestions }
+              style={ hasQuestions ? styles.button : styles.disabled}
+              onPress={()=> this.props.navigation.navigate(
+                'QuizView',
+                {slug: deck.slug}
+              )}>
+              <Text style={styles.buttonText}>Start Quiz</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={()=> this.props.navigation.navigate(
+                'AddCard',
+                {slug: deck.slug}
+              )}>
+              <Text style={styles.buttonText}>Add Card</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+      )
+    }
 
-      </View>
+    return (
+      <AppLoading />
     )
   }
 }
@@ -61,6 +74,7 @@ const styles = StyleSheet.create({
     color: darkBlue,
     padding: 10,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   disabled: {
     backgroundColor:'#A9A9A9',

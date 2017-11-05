@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, KeyboardAvo
 import { darkBlue, green, white } from '../utils/colors'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
+import { makeSlug, generateID } from '../utils/helpers'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -15,13 +16,14 @@ function SubmitBtn ({ onPress }) {
 }
 
 class NewDeck extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { text: ''}
-  }
+
+  state = { text: ''}
 
   submit = () => {
+
     const title = this.state.text
+    const slug = makeSlug(title)
+
     const hasErr = (this.state.text == false)
     if (hasErr) {
       Alert.alert(
@@ -34,7 +36,8 @@ class NewDeck extends React.Component {
       return false
     }
     this.props.dispatch(addDeck(title))
-    this.props.navigation.goBack()
+    this.setState(() => ({text: ''}))
+    this.props.navigation.navigate('DeckView', {slug} )
   }
 
 
