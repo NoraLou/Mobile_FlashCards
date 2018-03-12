@@ -1,7 +1,6 @@
 # Mobile_FlashCards
 
-This app was created as the out of class project for the Udacity React-Native course.
-Users can create decks of flash-cards and quiz themselves.  A local notification reminds you to study daily.
+A Flashcard app similar to Anki. Users can create decks of flash-cards and quiz themselves.  A local device push-notification reminds the user to study daily at a specified time the user sets. Built to study React Native.
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
